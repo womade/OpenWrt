@@ -1,0 +1,74 @@
+name: Update LEDE Codes
+
+on: 
+#  release:
+#    types: [published]
+#  push:
+#    tags:
+#      - 'v*'
+#    branches:
+#      - main
+  workflow_dispatch:
+#  schedule:
+#    - cron: '00 08 10,20 * *'
+  watch:
+    types: [started]
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  OpenWrt:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+
+    name: Update ${{matrix.target}}
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [LEDE]
+        
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install git subversion git-core wget
+        sudo timedatectl set-timezone "$TZ"
+        git config --global user.email "github-actions@ssss.fun"
+        git config --global user.name "github-actions[bot]"
+        
+    - name: Clone codes
+      run: |
+        cd $GITHUB_WORKSPACE
+        git clone -b ${{matrix.target}} https://github.com/womade/OpenWrt.git ${{matrix.target}}
+        cd ${{matrix.target}}
+        rm -Rf *
+        git rm --cache *
+        git clone -b master https://github.com/coolsnowwolf/lede.git ${{matrix.target}}
+        mv ${{matrix.target}}/* $GITHUB_WORKSPACE/${{matrix.target}}
+        rm -rf ./*/.git
+        rm -f ./*/.gitattributes
+        rm -rf ./*/.svn
+        rm -rf ./*/.github
+        rm -rf ./*/.gitignore
+        exit 0
+    - name: Upload codes
+      env: 
+        GITHUB_TOKEN: ${{ secrets.R_TOKEN }}
+      run: |
+        [ -e $GITHUB_WORKSPACE/README.md ] && cp $GITHUB_WORKSPACE/README.md $GITHUB_WORKSPACE/${{matrix.target}}
+        cd $GITHUB_WORKSPACE/${{matrix.target}}
+        git add .
+        git commit -m "Update$(TZ='Asia/Shanghai' date +@%Y%m%d)"
+        git push --quiet "https://${{ secrets.R_TOKEN }}@github.com/womade/OpenWrt.git" HEAD:${{matrix.target}}
+
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 7
+        keep_minimum_runs: 0
