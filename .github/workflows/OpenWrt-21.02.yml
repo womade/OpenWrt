@@ -49,7 +49,7 @@ jobs:
         cd ${{matrix.target}}
         rm -Rf *
         git rm --cache *
-        git clone -b v21.02.0 https://github.com/openwrt/openwrt.git ${{matrix.target}}
+        git clone -b openwrt-21.02 https://github.com/openwrt/openwrt.git ${{matrix.target}}
         mv ${{matrix.target}}/* $GITHUB_WORKSPACE/${{matrix.target}}
         rm -rf ./*/.git
         rm -f ./*/.gitattributes
