@@ -62,7 +62,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.R_TOKEN }}
       run: |
         [ -e $GITHUB_WORKSPACE/README.md ] && cp $GITHUB_WORKSPACE/README.md $GITHUB_WORKSPACE/${{matrix.target}}
-        [ -e $GITHUB_WORKSPACE/LEDE/feeds.conf.default ] && cp $GITHUB_WORKSPACE/feeds.conf.default $GITHUB_WORKSPACE/${{matrix.target}}
+        [ -e $GITHUB_WORKSPACE/modify/LEDE/feeds.conf.default ] && cp $GITHUB_WORKSPACE/feeds.conf.default $GITHUB_WORKSPACE/${{matrix.target}}
         cd $GITHUB_WORKSPACE/${{matrix.target}}
         git add .
         git commit -m "Update$(TZ='Asia/Shanghai' date +@%Y%m%d)"
