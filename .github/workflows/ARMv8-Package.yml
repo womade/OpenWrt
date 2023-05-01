@@ -89,7 +89,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ARMv8_${{ env.VERSION }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         body: |
           **This is OpenWrt Firmware for Armvirt 64**

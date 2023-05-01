@@ -1,11 +1,3 @@
-#===============================================
-# Description: Build OpenWrt
-# File name: build-openwrt.yml
-# Lisence: MIT
-# Author: P3TERX
-# https://github.com/P3TERX
-#===============================================
-
 name: ARMv8 Mini OpenWrt
 
 on:
@@ -170,7 +162,7 @@ jobs:
         allowUpdates: true
         replacesArtifacts: true
         tag: ${{ env.FIRMWARE_TAG }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         artifacts: ${{ env.FIRMWARE_PATH }}/*
         body: |
           **This is Temporary Firmware for Armvirt 64**
@@ -237,7 +229,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.OPENWRT_TAG }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         body: |
           **This is OpenWrt Firmware for Armvirt 64**

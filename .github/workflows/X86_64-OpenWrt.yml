@@ -1,11 +1,3 @@
-#===============================================
-# Description: Build OpenWrt
-# File name: build-openwrt.yml
-# Lisence: MIT
-# Author: P3TERX
-# https://github.com/P3TERX
-#===============================================
-
 name: X86_64 OpenWrt
 
 on:
@@ -144,7 +136,7 @@ jobs:
       if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
       uses: mknejp/delete-release-assets@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         tag: ${{ env.TOOLCHAIN_TAG }}
         assets: '${{ env.TOOLCHAIN_IMAGE }}.*'
         fail-if-no-assets: false
@@ -158,7 +150,7 @@ jobs:
         allowUpdates: true
         replacesArtifacts: true
         tag: ${{ env.TOOLCHAIN_TAG }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         artifacts: output/*
         body: OpenWrt 工具链镜像文件
 
@@ -341,7 +333,7 @@ jobs:
         allowUpdates: true
         replacesArtifacts: true
         tag: ${{ env.FIRMWARE_TAG }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.R_TOKEN }}
         artifacts: ${{ env.FIRMWARE_PATH }}/*
         body: |
           **This is OpenWrt Firmware for ${{ env.FIRMWARE_TAG }}**
