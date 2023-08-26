@@ -11,7 +11,12 @@ sed -i 's/OpenWrt/SuperNet/g' package/lean/mt/drivers/mt_wifi/files/*.dat
 cp -f $GITHUB_WORKSPACE/modify/etc/banner package/base-files/files/etc/banner
 
 # 修改版本号
-sed -i 's/OpenWrt /SuperNet @ Y-ZHENG /g' package/lean/default-settings/files/zzz-default-settings
+sed -i 's/OpenWrt /SuperNet /g' package/lean/default-settings/files/zzz-default-settings
+date_version=$(date +"%y.%m.%d")
+orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
+sed -i "s/${orig_version}/SN${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
+
+
 sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='SN-$(date +%y.%m)'|g" package/lean/default-settings/files/zzz-default-settings
 cp -f $GITHUB_WORKSPACE/modify/etc/openwrt_release package/base-files/files/etc/openwrt_release
 echo "DISTRIB_SOURCECODE='YUANZHENG'" >>package/base-files/files/etc/openwrt_release
