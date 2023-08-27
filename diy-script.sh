@@ -14,7 +14,7 @@ cp -f $GITHUB_WORKSPACE/modify/etc/banner package/base-files/files/etc/banner
 sed -i 's/OpenWrt /SuperNet /g' package/lean/default-settings/files/zzz-default-settings
 date_version=$(date +"%y.%m")
 orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
-sed -i "s/${orig_version}/R${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
+sed -i "s/${orig_version}/SN-${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
 
 # 修改NTP服务器
 sed -i 's/ntp.aliyun.com/ntp.ssss.fun/g' package/base-files/files/bin/config_generate
