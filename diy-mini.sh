@@ -31,6 +31,16 @@ sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
 # TTYD 自动登录
 sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.config
 
+# 默认密码为空（原：password）
+sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
+
+# 状态系统增加个性信息
+sed -i "s/exit 0//" package/lean/default-settings/files/zzz-default-settings
+echo "sed -i '/CPU usage/a\<tr><td width=\"33%\">其他链接</td><td><a class=\"yuanzheng\" href=\"https://i.ssss.fun\">❤️ 特别鸣谢</a>&nbsp;&nbsp;&nbsp;<a class=\"yuanzheng\" href=\"https://pay.ssss.fun\">👍 赞助支持</a>&nbsp;&nbsp;&nbsp;<a class=\"yuanzheng\" href=\"https://msg.ssss.fun\">📃 问题反馈</a></td></tr>' /usr/lib/lua/luci/view/admin_status/index.htm" >> package/lean/default-settings/files/zzz-default-settings
+echo "" >> package/lean/default-settings/files/zzz-default-settings
+echo "" >> package/lean/default-settings/files/zzz-default-settings
+echo "exit 0" >> package/lean/default-settings/files/zzz-default-settings
+
 # 移除要替换的包
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/packages/net/msd_lite
