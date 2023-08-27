@@ -15,6 +15,8 @@ sed -i 's/OpenWrt /SuperNet /g' package/lean/default-settings/files/zzz-default-
 date_version=$(date +"%y.%m")
 orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
 sed -i "s/${orig_version}/SN-${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
+cp -f $GITHUB_WORKSPACE/modify/etc/openwrt_release package/base-files/files/etc/openwrt_release
+echo "DISTRIB_SOURCECODE='YUANZHENG'" >>package/base-files/files/etc/openwrt_release
 
 # 修改NTP服务器
 sed -i 's/ntp.aliyun.com/ntp.ssss.fun/g' package/base-files/files/bin/config_generate
