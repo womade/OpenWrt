@@ -68,7 +68,7 @@ jobs:
       if: steps.download.outputs.status == 'success'
       uses: womade/openwrt_packit@main
       env:
-        OPENWRT_ARMVIRT: openwrt-armvirt/*rootfs.tar.gz
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
         PACKAGE_SOC: all
         WHOAMI: Y-ZHENG
         DISTRIB_DESCRIPTION: SuperNet
