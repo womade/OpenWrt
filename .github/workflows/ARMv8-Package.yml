@@ -86,7 +86,7 @@ jobs:
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true'
       uses: ncipollo/release-action@v1
       with:
-        name: R${{ env.DATE }} for ARMv8_${{ env.VERSION }}
+        name: SN-${{ env.DATE }} for ARMv8_${{ env.VERSION }}
         allowUpdates: true
         removeArtifacts: true
         tag: ARMv8_${{ env.VERSION }}
