@@ -14,7 +14,7 @@ cp -f $GITHUB_WORKSPACE/modify/etc/banner package/base-files/files/etc/banner
 sed -i 's/OpenWrt /SuperNet /g' package/lean/default-settings/files/zzz-default-settings
 date_version=$(date +"%y.%m")
 orig_version=$(cat "package/lean/default-settings/files/zzz-default-settings" | grep DISTRIB_REVISION= | awk -F "'" '{print $2}')
-sed -i "s/${orig_version}/SN${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
+sed -i "s/${orig_version}/R${date_version} @ Y-ZHENG/g" package/lean/default-settings/files/zzz-default-settings
 
 
 sed -i "s|DISTRIB_REVISION='.*'|DISTRIB_REVISION='SN-$(date +%y.%m)'|g" package/lean/default-settings/files/zzz-default-settings
