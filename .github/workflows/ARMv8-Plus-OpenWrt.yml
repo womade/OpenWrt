@@ -383,7 +383,7 @@ jobs:
         DISTRIB_DESCRIPTION: SuperNet
         KERNEL_VERSION_NAME: 5.15.13_6.1.5
         KERNEL_AUTO_LATEST: true
-        OPENWRT_VER: SN-${{ env.DATE1 }}
+        OPENWRT_VER: SN-$(date +%y.%m)
         DISTRIB_REVISION: SN-${{ env.DATE1 }} @ Y-ZHENG
 
     - name: Upload OpenWrt To Artifact
